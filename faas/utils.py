@@ -3,6 +3,7 @@ import psutil
 import os
 import yaml
 import faas
+import argparse
 
 # It's not exact byte, but as we generate more data
 # the difference is insignificant
@@ -63,3 +64,16 @@ def get_application_tokens(config_file_path, service_name='faas'):
         ))
         os._exit(1)
     return tokens
+
+
+class ExpandPath(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, self.dest, os.path.abspath(os.path.expanduser(values)))
+
+
+def is_dir(dirname):
+    if not os.path.isdir(dirname):
+        msg = "{} is not a valid directory".format(dirname)
+        raise argparse.ArgumentTypeError(msg)
+    else:
+        return dirname

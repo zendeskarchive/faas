@@ -3,7 +3,7 @@ import signal
 import time
 
 import faas
-from faas.utils import is_crash_loop_set, get_crash_loop_file_identifier, get_application_tokens
+from faas.utils import is_crash_loop_set, get_crash_loop_file_identifier, get_application_tokens, ExpandPath, is_dir
 
 
 def ignore_signal(signum, frame):
@@ -15,6 +15,8 @@ def main():
     parser.add_argument("--port", type=int, required=True, help="Port to listen on")
     parser.add_argument("--config-file", type=argparse.FileType(mode='r'),
                         help="Application config file")
+    parser.add_argument("--log-directory", default='.', type=is_dir, action=ExpandPath,
+                        help="Application log directory")
     parser.add_argument("--host", default="0.0.0.0", help="Host to listen on")
     parser.add_argument("--debug", action='store_true', help="Print debug info")
     parser.add_argument("--start-delay-seconds", default=0, type=int,
@@ -33,6 +35,8 @@ def main():
         if not args.config_file:
             parser.error('The --require-authentication argument requires the --config-file')
         faas.application_tokens = get_application_tokens(args.config_file)
+
+    faas.log_directory = args.log_directory
 
     options = {"threaded": True, "debug": True, "use_reloader": False}
 

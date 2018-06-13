@@ -8,6 +8,7 @@ Provides many misbehavior cases as a Service.
 * `--port` - port to listen on
 * `--host` - host to listen on (defaults to 0.0.0.0)
 * `--config-file` - application config file
+* `--log-directory` - application log directory (defaults to `cwd`)
 * `--debug` - print debug info
 * `--start-delay-seconds` start application after N seconds (defaults to 0)
 * `--crash` - crash application before starting socket

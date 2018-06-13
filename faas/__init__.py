@@ -11,3 +11,4 @@ import faas.stop_listener
 
 require_authentication = False
 application_tokens = []
+log_directory = ""

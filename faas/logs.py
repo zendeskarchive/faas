@@ -4,6 +4,7 @@ import datetime
 import time
 import sys
 import os
+import faas
 
 from faas import app
 from faas.utils import NEAR_BYTE
@@ -23,7 +24,10 @@ def logs():
     if output_fd_param in ["stdout", "stderr"]:
         output_fd = sys.stdout if output_fd_param == "stdout" else sys.stderr
     else:
-        output_fd = open(os.path.basename(output_fd_param), "a+")
+        output_fd = open(
+            os.path.join(
+                str(faas.log_directory), os.path.basename(output_fd_param)
+            ), "a+")
 
     output_per_second = NEAR_BYTE * generate_bytes_per_second + "\n"
 
