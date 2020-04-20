@@ -57,3 +57,9 @@ Parameters
 ### `GET /stop_listener`
 
 Stop TCP listener but keep the main process runnning.
+
+## Copyright and license
+
+Copyright 2020 Zendesk
+
+Licensed under the [Apache License, Version 2.0](LICENSE)
